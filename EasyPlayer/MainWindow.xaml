@@ -1,0 +1,32 @@
+﻿<Window x:Class="EasyPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EasyPlayer"
+        Title="EasyPlayer" Height="173.333" Width="380" WindowStartupLocation="CenterScreen">
+    <Grid HorizontalAlignment="Center" Height="132" Margin="0,0,0,0" VerticalAlignment="Center" Width="360">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Content="Label" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="4"/>
+        <ProgressBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
+        <Label x:Name="lblTimeLeft" Content="Label"  Grid.Row="2" Grid.Column="0"/>
+        <Label Content="Label"  Grid.Row="2" VerticalAlignment="Top" Width="90" Height="33" Grid.Column="3"/>
+        <Button Content="Left" Grid.Column="1" Grid.Row="2" />
+        <Button Content="Right" Grid.Column="2" Grid.Row="2" />
+        <Button x:Name="btnOpen" Content="Open" Grid.Column="0" Grid.Row="3" Click="BtnOpen_Click"/>
+        <Button Content="Play" Grid.Column="1" Grid.Row="3" Click="BtnPlay_Click"/>
+        <Button Content="Stop" Grid.Column="2" Grid.Row="3" Click="BtnStop_Click"/>
+        <Button Content="Pause" Grid.Column="3" Grid.Row="3" Click="BtnPause_Click"/>
+    </Grid>
+</Window>
