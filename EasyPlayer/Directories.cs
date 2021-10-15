@@ -35,6 +35,16 @@ namespace EasyPlayer
                     }
                 }
             }
+
+            string[] file = Directory.GetFiles(startDirectory);
+            foreach (var element in file)
+            {
+                if (element.IndexOf(".mp3") >= 0)
+                {
+                    playList.WriteLine(element);
+                }
+            }
+
             playList.Close();
         }
     }

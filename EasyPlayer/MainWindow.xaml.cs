@@ -35,6 +35,7 @@ namespace EasyPlayer
             playList = new List<string>();
             StreamReader filePlayList;
             player.MediaEnded += Player_MediaEnded;
+            player.MediaOpened += Player_MediaOpened;
             timer = new Timer();
             timer.Tick += Timer_Tick;
             timer.Interval = 1000;
@@ -54,14 +55,22 @@ namespace EasyPlayer
             {
                 playList.Add(songPath);
             }
+            filePlayList.Dispose();
+        }
+
+        private void Player_MediaOpened(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            lblDuration.Content = player.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
+            pgb.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             TimeSpan curTime = player.Position;
-            lblTimeLeft.Content = curTime.Seconds;
-            
+            lblTimeLeft.Content = curTime.ToString(@"hh\:mm\:ss");
+            pgb.Value = curTime.TotalSeconds;
         }
 
         private void Player_MediaEnded(object sender, EventArgs e)
@@ -70,7 +79,10 @@ namespace EasyPlayer
             if (numberSong < playList.Count)
             {
                 numberSong++;
+                if (numberSong == playList.Count)
+                    numberSong = 0;
                 player.Open(new Uri(playList[numberSong]));
+                player.Play();
             }
             else
             {
@@ -83,7 +95,8 @@ namespace EasyPlayer
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
             var FBD = new FolderBrowserDialog();
-            if(FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            playList.Clear();
+            if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Directories.SearchFiles(FBD.SelectedPath);
                 var filePlayList = new StreamReader("playlist.txt");
@@ -121,6 +134,26 @@ namespace EasyPlayer
                 isPlaying = false;
                 timer.Stop();
             }
+        }
+
+        private void btnLeft_Click(object sender, RoutedEventArgs e)
+        {
+            player.Stop();
+            numberSong--;
+            if ((uint)numberSong == uint.MaxValue)
+                numberSong = playList.Count - 1;
+            player.Open(new Uri(playList[numberSong]));
+            player.Play();
+        }
+
+        private void btnRight_Click(object sender, RoutedEventArgs e)
+        {
+            player.Stop();
+            numberSong++;
+            if (numberSong == playList.Count)
+                numberSong = 0;
+            player.Open(new Uri(playList[numberSong]));
+            player.Play();
         }
     }
 }
