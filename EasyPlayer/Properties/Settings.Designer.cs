@@ -34,5 +34,29 @@ namespace EasyPlayer.Properties {
                 this["numberSong"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isPlaying {
+            get {
+                return ((bool)(this["isPlaying"]));
+            }
+            set {
+                this["isPlaying"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00")]
+        public global::System.TimeSpan curPosition {
+            get {
+                return ((global::System.TimeSpan)(this["curPosition"]));
+            }
+            set {
+                this["curPosition"] = value;
+            }
+        }
     }
 }

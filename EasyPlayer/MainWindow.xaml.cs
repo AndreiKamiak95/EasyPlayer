@@ -58,6 +58,13 @@ namespace EasyPlayer
             filePlayList.Dispose();
 
             numberSong = Properties.Settings.Default.numberSong;
+            isPlaying = Properties.Settings.Default.isPlaying;
+            if (isPlaying)
+            {
+                player.Open(new Uri(playList[numberSong]));
+                player.Play();
+                timer.Start();
+            }
         }
 
         private void Player_MediaOpened(object sender, EventArgs e)
@@ -66,7 +73,7 @@ namespace EasyPlayer
             lblDuration.Content = player.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
             pgb.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
             string nameFile = player.Source.ToString();
-            lblNameFile.Content = nameFile.Substring(nameFile.LastIndexOf('/') + 1);
+            lblNameFile.Content = nameFile.Substring(nameFile.LastIndexOf('/') + 1) + " [" + (numberSong + 1).ToString() + '/' + playList.Count.ToString() + ']';
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -170,6 +177,8 @@ namespace EasyPlayer
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.numberSong = numberSong;
+            Properties.Settings.Default.isPlaying = isPlaying;
+            Properties.Settings.Default.curPosition = player.NaturalDuration.TimeSpan;
             Properties.Settings.Default.Save();
         }
     }

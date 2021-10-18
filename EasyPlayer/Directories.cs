@@ -8,7 +8,7 @@ namespace EasyPlayer
         private static StreamWriter playList;
         public static void SearchFiles(string startDirectory)
         {
-            playList = new StreamWriter("playlist.txt");
+            playList = new StreamWriter("playlist.txt", false);
             string[] folders = Directory.GetDirectories(startDirectory, "*", SearchOption.AllDirectories);
             if (folders.Length == 0)
             {
@@ -33,15 +33,6 @@ namespace EasyPlayer
                             playList.WriteLine(element);
                         }
                     }
-                }
-            }
-
-            string[] file = Directory.GetFiles(startDirectory);
-            foreach (var element in file)
-            {
-                if (element.IndexOf(".mp3") >= 0)
-                {
-                    playList.WriteLine(element);
                 }
             }
 
