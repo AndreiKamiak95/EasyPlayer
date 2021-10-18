@@ -44,7 +44,7 @@ namespace EasyPlayer
             {
                 filePlayList = new StreamReader("playlist.txt");
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 System.Windows.MessageBox.Show("Папка для воспроизведения не выбрана");
                 return;
@@ -56,6 +56,8 @@ namespace EasyPlayer
                 playList.Add(songPath);
             }
             filePlayList.Dispose();
+
+            numberSong = Properties.Settings.Default.numberSong;
         }
 
         private void Player_MediaOpened(object sender, EventArgs e)
@@ -63,6 +65,8 @@ namespace EasyPlayer
             //throw new NotImplementedException();
             lblDuration.Content = player.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss");
             pgb.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
+            string nameFile = player.Source.ToString();
+            lblNameFile.Content = nameFile.Substring(nameFile.LastIndexOf('/') + 1);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -81,6 +85,7 @@ namespace EasyPlayer
                 numberSong++;
                 if (numberSong == playList.Count)
                     numberSong = 0;
+                pgb.Value = 0;
                 player.Open(new Uri(playList[numberSong]));
                 player.Play();
             }
@@ -105,6 +110,7 @@ namespace EasyPlayer
                 {
                     playList.Add(songPath);
                 }
+                numberSong = 0;
             }
         }
 
@@ -154,6 +160,17 @@ namespace EasyPlayer
                 numberSong = 0;
             player.Open(new Uri(playList[numberSong]));
             player.Play();
+        }
+
+        private void pgb_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            player.Position = TimeSpan.FromSeconds(pgb.Value);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.numberSong = numberSong;
+            Properties.Settings.Default.Save();
         }
     }
 }
