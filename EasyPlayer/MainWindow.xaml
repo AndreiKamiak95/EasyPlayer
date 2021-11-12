@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EasyPlayer"
-        Title="EasyPlayer" Height="170" Width="380" WindowStartupLocation="CenterScreen" Closing="Window_Closing" MinWidth="380" MinHeight="170" MaxWidth="380" MaxHeight="170">
-    <Grid HorizontalAlignment="Center" Height="132" Margin="0,0,0,0" VerticalAlignment="Center" Width="360">
+        Title="EasyPlayer" Height="210" Width="380" WindowStartupLocation="CenterScreen" Closing="Window_Closing" MinWidth="380" MinHeight="210" MaxWidth="380" MaxHeight="210">
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -18,8 +19,8 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblNameFile" Content="File name" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="3"/>
-        <Slider x:Name="pgb" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ValueChanged="pgb_ValueChanged" Margin="3"/>
+        <Label x:Name="lblNameFile" Content="File name" Grid.Row="0" Grid.ColumnSpan="4" Margin="3" VerticalContentAlignment="Center"/>
+        <Slider x:Name="pgb" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ValueChanged="pgb_ValueChanged" Margin="3" VerticalAlignment="Center"/>
         <Label x:Name="lblTimeLeft" Content="Label"  Grid.Row="2" Grid.Column="0"  Margin="3"/>
         <Label x:Name="lblDuration" Content="Label"  Grid.Row="2" VerticalAlignment="Top" Width="90" Height="33" Grid.Column="3" Margin="3"/>
         <Button x:Name="btnLeft" Content="Left" Grid.Column="1" Grid.Row="2" Click="btnLeft_Click" Margin="3"/>
@@ -28,5 +29,10 @@
         <Button Content="Play" Grid.Column="1" Grid.Row="3" Click="BtnPlay_Click" Margin="3"/>
         <Button Content="Stop" Grid.Column="2" Grid.Row="3" Click="BtnStop_Click" Margin="3"/>
         <Button Content="Pause" Grid.Column="3" Grid.Row="3" Click="BtnPause_Click" Margin="3"/>
+        <Button x:Name="btnMute" Content="Mute" Grid.Column="3" Grid.Row="4" Click="BtnMute_Click" Margin="3"/>
+        <Slider x:Name="slrVolume" ValueChanged="SrlVolume_ValueChanged" Maximum="100" Minimum="0" 
+                Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="3"/>
+        <Slider x:Name="slrBalance" ValueChanged="SrlBalance_ValueChanged" Minimum="-100" Maximum="100"
+                Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="3" MouseDoubleClick="SlrBalance_MouseDoubleClick"/>
     </Grid>
 </Window>

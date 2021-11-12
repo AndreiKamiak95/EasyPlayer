@@ -59,6 +59,9 @@ namespace EasyPlayer
 
             numberSong = Properties.Settings.Default.numberSong;
             isPlaying = Properties.Settings.Default.isPlaying;
+            slrVolume.Value = Properties.Settings.Default.Volume;
+            slrBalance.Value = Properties.Settings.Default.Balance;
+
             if (isPlaying)
             {
                 player.Open(new Uri(playList[numberSong]));
@@ -179,6 +182,33 @@ namespace EasyPlayer
             Properties.Settings.Default.numberSong = numberSong;
             Properties.Settings.Default.isPlaying = isPlaying;
             Properties.Settings.Default.curPosition = player.NaturalDuration.TimeSpan;
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnMute_Click(object sender, RoutedEventArgs e)
+        {
+            player.IsMuted = player.IsMuted == false;
+        }
+
+        private void SrlVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            player.Volume = slrVolume.Value / 100;
+            Properties.Settings.Default.Volume = slrVolume.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void SrlBalance_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            player.Balance = slrBalance.Value / 100;
+            Properties.Settings.Default.Balance = slrBalance.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void SlrBalance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            player.Balance = 0;
+            slrBalance.Value = 0;
+            Properties.Settings.Default.Balance = slrBalance.Value;
             Properties.Settings.Default.Save();
         }
     }
